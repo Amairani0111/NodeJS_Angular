@@ -11,29 +11,54 @@ const libros = [
 
 //Crear servidor
 const server = http.createServer(( request, response) => {
-    //Imprime request que envía el cliente
+    
+    //--Imprime request que envía el cliente
     //console.log(request);
-
-    //Imprimir propiedades del request (header, url y metodo)
+//----------------------------------------------------------------
+    //--Imprimir propiedades del request (header, url y metodo)
     //const { headers, url, method } = request;
     //console.log(headers, url, method);
-
-    //Texto tipo plano
+//----------------------------------------------------------------
+    //--Texto tipo plano
     //response.setHeader('Content-Type', 'text/plain')
-
-    //Texto tipo html 
-    //response.setHeader('Content-Type', 'text/html')
-
-    //Imprimir texto
+    //--Imprimir texto
     //response.write('<h1>Hola mundo</h1>');
+//----------------------------------------------------------------
+    //--Texto tipo html 
+    //response.setHeader('Content-Type', 'text/html')
+    //--Imprimir texto
+    //response.write('<h1>Hola mundo</h1>');
+//----------------------------------------------------------------
+    //--Imprimir texto
+    //response.write('<h1>Hola mundo</h1>');
+//----------------------------------------------------------------
+    //--Texto tipo JSON 
+    //response.setHeader('Content-Type', 'application/json')
 
-    //Texto tipo JSON 
-    response.setHeader('Content-Type', 'application/json')
-
-    //Devuelve el response al cliente
-    response.end(
+    //--Devuelve el response al cliente
+    /*response.end(
         JSON.stringify({data: libros})
-    );
+    );*/  
+//----------------------------------------------------------------
+    //Estatus
+    //response.statusCode = 404; //Error
+    
+    //response.setHeader('Content-Type', 'application/json')
+
+    /*response.end(
+        JSON.stringify( {data: null})
+    )*/
+//----------------------------------------------------------------
+    
+    response.writeHead(404, {
+        'Content-Type': 'application/json'
+    });
+
+    response.end(
+        JSON.stringify( {data: null})
+    )
+
+//----------------------------------------------------------------    
 });
 
 //Puerto en donde el servidor se va a levantar
