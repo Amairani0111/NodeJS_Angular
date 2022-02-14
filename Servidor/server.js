@@ -50,15 +50,25 @@ const server = http.createServer(( request, response) => {
     )*/
 //----------------------------------------------------------------
     
-    response.writeHead(404, {
+    /*response.writeHead(404, {
         'Content-Type': 'application/json'
     });
 
     response.end(
         JSON.stringify( {data: null})
-    )
+    )*/
 
-//----------------------------------------------------------------    
+//----------------------------------------------------------------   
+    response.writeHead(404, {
+        'Content-Type': 'application/json'
+    });    
+
+    //Imprime el valor de authorization del header
+    console.log(request.headers.authorization);
+
+    response.end(
+        JSON.stringify({ data: null})
+    )
 });
 
 //Puerto en donde el servidor se va a levantar
