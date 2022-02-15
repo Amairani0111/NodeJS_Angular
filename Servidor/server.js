@@ -59,7 +59,7 @@ const server = http.createServer(( request, response) => {
     )*/
 
 //----------------------------------------------------------------   
-    response.writeHead(404, {
+    /*response.writeHead(404, {
         'Content-Type': 'application/json'
     });    
 
@@ -68,6 +68,28 @@ const server = http.createServer(( request, response) => {
 
     response.end(
         JSON.stringify({ data: null})
+    )*/
+
+//----------------------------------------------------------------  
+    response.writeHead(200, {
+        'Content-Type': 'application/json'
+    });    
+
+    let body = [];
+    
+    //Imprimir data que se envía en el body desde postman
+    request.on('data', dataCliente => {
+        body.push(dataCliente)
+    })
+
+    .on('end', () => {
+        //Convierte los valores a string
+        body = Buffer.concat(body).toString();
+        console.log(body);
+    })
+
+    response.end(
+        JSON.stringify({ data: libros})
     )
 });
 
