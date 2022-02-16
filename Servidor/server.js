@@ -71,9 +71,7 @@ const server = http.createServer(( request, response) => {
     )*/
 
 //----------------------------------------------------------------  
-    response.writeHead(200, {
-        'Content-Type': 'application/json'
-    });    
+    const { method, url } = request;        
 
     let body = [];
     
@@ -85,12 +83,43 @@ const server = http.createServer(( request, response) => {
     .on('end', () => {
         //Convierte los valores a string
         body = Buffer.concat(body).toString();
-        console.log(body);
-    })
+        //console.log(body);
 
-    response.end(
-        JSON.stringify({ data: libros})
-    )
+        //Código de error
+        let status = 404;
+
+        //Variable que represente al objeto response
+        const res = {
+            status : 404,
+            data: null
+        }
+
+        if(method === 'GET' && url === '/libros') {
+            status = 200;
+            res.status = 200;
+            res.data = libros;
+        } else if(method === 'POST' && url === '/libros') {
+            status = 200;
+            
+            //obtener la data del libro que se va a almacenar
+            const { titulo, autor } = JSON.parse(body);
+            
+            //agregar nuevo elemento
+            libros.push({titulo, autor});
+            
+            res.status = 200;
+            res.data = libros;
+        }
+
+        response.writeHead(status, {
+            'Content-Type': 'application/json'
+        });  
+
+        //Enviar response al cliente final
+        response.end(
+            JSON.stringify({ res })
+        )
+    })
 });
 
 //Puerto en donde el servidor se va a levantar
