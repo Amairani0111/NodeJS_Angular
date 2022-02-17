@@ -1,8 +1,30 @@
-const express = require('express');
+const express = require("express");
 const ruta = express.Router();
 
+const {
+  getLibro,
+  getLibros,
+  crearLibro,
+  actualizarLibro,
+  eliminarLibro,
+} = require("../controllers/libro");
+
+ruta
+    .route('/')
+    .get(getLibros)
+    .post(crearLibro)
+
+ruta
+    .route('/:id')
+    .get(getLibro)
+    .put(actualizarLibro)
+    .delete(eliminarLibro)    
+
+//Se exportara a otras rutas
+module.exports = ruta;
+
 //Las rutas van sin el /api/Libro ya que se declaro en el archivo server.js
-ruta.get('/', (req, res) => {
+/*ruta.get('/', (req, res) => {
     res.status(200).json({status:200, mensaje: 'Se proceso correctamente'});
 });
 
@@ -20,7 +42,4 @@ ruta.put('/:id', (req, res) => {
 
 ruta.delete('/:id', (req, res) => {
     res.status(200).json({status:200, mensaje: 'Se ha eliminado el libro correctamente'});
-});
-
-//Se exportara a otras rutas
-module.exports = ruta;
+});*/
